@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>포모증후군 자가진단 설문</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fdfdfd;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .result {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: darkblue;
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #eef;
+      border-left: 5px solid #007BFF;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📱 포모증후군(FOMO) 자가진단 설문</h1>
+
+  <form id="fomoForm">
+    <div class="question">
+      1. SNS에서 친구들이 올린 사진이나 글을 보면 불안하거나 초조한 기분이 든 적이 있나요?<br>
+      <label><input type="radio" name="q1" value="yes" required> 예</label>
+      <label><input type="radio" name="q1" value="no"> 아니오</label>
+    </div>
+
+    <div class="question">
+      2. 남들과 비교하며 내가 뒤처졌다는 생각을 자주 하나요?<br>
+      <label><input type="radio" name="q2" value="yes" required> 예</label>
+      <label><input type="radio" name="q2" value="no"> 아니오</label>
+    </div>
+
+    <div class="question">
+      3. 중요한 일을 하다가도 SNS를 확인하느라 집중력이 떨어진 적이 있나요?<br>
+      <label><input type="radio" name="q3" value="yes" required> 예</label>
+      <label><input type="radio" name="q3" value="no"> 아니오</label>
+    </div>
+
+    <div class="question">
+      4. 친구들이 나만 빼고 재밌는 일을 하고 있는 것 같아 속상했던 적이 있나요?<br>
+      <label><input type="radio" name="q4" value="yes" required> 예</label>
+      <label><input type="radio" name="q4" value="no"> 아니오</label>
+    </div>
+
+    <div class="question">
+      5. “지금 이 순간”보다 다른 곳에서 벌어지는 일이 더 중요하다고 느낀 적이 있나요?<br>
+      <label><input type="radio" name="q5" value="yes" required> 예</label>
+      <label><input type="radio" name="q5" value="no"> 아니오</label>
+    </div>
+
+    <button type="submit">제출하기</button>
+  </form>
+
+  <div class="result" id="result" style="display: none;"></div>
+
+  <script>
+    const form = document.getElementById('fomoForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // 새로고침 방지
+
+      let yesCount = 0;
+      for (let i = 1; i <= 5; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (answer && answer.value === 'yes') {
+          yesCount++;
+        }
+      }
+
+      let resultText = '';
+      if (yesCount <= 1) {
+        resultText = '🟢 포모증후군 위험: 낮음 — SNS를 균형 있게 잘 사용하고 있어요!';
+      } else if (yesCount <= 3) {
+        resultText = '🟡 포모증후군 위험: 중간 — 사용 습관을 점검해볼 필요가 있어요.';
+      } else {
+        resultText = '🔴 포모증후군 위험: 높음 — SNS 사용을 줄이고 지금 이 순간에 집중해보세요.';
+      }
+
+      resultDiv.innerText = resultText;
+      resultDiv.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
